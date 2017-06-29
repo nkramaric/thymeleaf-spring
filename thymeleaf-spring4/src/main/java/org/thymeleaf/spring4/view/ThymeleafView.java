@@ -19,6 +19,7 @@
  */
 package org.thymeleaf.spring4.view;
 
+import java.io.PrintWriter;
 import java.lang.reflect.Field;
 import java.nio.charset.Charset;
 import java.util.Arrays;
@@ -350,7 +351,12 @@ public class ThymeleafView
 
         }
 
-        viewTemplateEngine.process(templateName, processMarkupSelectors, context, response.getWriter());
+        String view = viewTemplateEngine.process(templateName, processMarkupSelectors, context);
+        PrintWriter writer = response.getWriter();
+        writer.append(view);
+        writer.flush();
+
+        //viewTemplateEngine.process(templateName, processMarkupSelectors, context, response.getWriter());
 
     }
 
